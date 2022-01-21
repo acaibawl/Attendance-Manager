@@ -1,11 +1,4 @@
 {
     "/js/app.js": "/js/app.js",
-    "/js/About.js": "/js/About.js",
-    "/js/Home.js": "/js/Home.js",
-    "/js/NavBar.js": "/js/NavBar.js",
-    "/js/Project.js": "/js/Project.js",
-    "/js/Task.js": "/js/Task.js",
-    "/js/hoge.js": "/js/hoge.js",
-    "/css/app.css": "/css/app.css",
-    "/css/_variables.css": "/css/_variables.css"
+    "/css/app.css": "/css/app.css"
 }

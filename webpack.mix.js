@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-const glob = require('glob');
+// const glob = require('glob');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,18 +12,19 @@ const glob = require('glob');
  |
  */
 
-// mix.js('resources/js/app.js', 'public/js')
-//     .react()
-//     .sass('resources/sass/app.scss', 'public/css');
+mix.ts('resources/ts/app.tsx', 'public/js')
+    .react()
+    .sass('resources/sass/app.scss', 'public/css');
 
 // globを使ってコンパイル対象をディレクトリ以下ワイルドカードで指定
-glob.sync('resources/ts/**/*.tsx').map(function (file) {
-    mix.ts(file, 'public/js')
-});
+// MPAとして最小限のjsだけ読み込むようにするなら下記の方法でもよいが、SPA用に単一のapp.jsとして出力するので上述の方法でバンドルする
+// glob.sync('resources/ts/**/*.tsx').map(function (file) {
+//     mix.ts(file, 'public/js')
+// });
 
-glob.sync('resources/sass/**/*.scss').map(function (file) {
-    mix.sass(file, 'public/css')
-});
+// glob.sync('resources/sass/**/*.scss').map(function (file) {
+//     mix.sass(file, 'public/css')
+// });
 
 if (mix.inProduction()){
     mix.version();

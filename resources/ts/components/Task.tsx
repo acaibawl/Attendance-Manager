@@ -7,7 +7,7 @@ type Task = {
   title: string;
 }
 
-const Task = () => {
+const Task: React.FC = () => {
 
   const [tasks, setTasks] = useState<Task[]>([]);
   useEffect(() => {
