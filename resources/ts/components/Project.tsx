@@ -11,10 +11,4 @@ const Project: FC<NoneProps> = () => {
   );
 };
 
-if (document.getElementById('project')) {
-  ReactDOM.render(<Project />, document.getElementById('project'));
-}
-
 export default Project;
-
-
