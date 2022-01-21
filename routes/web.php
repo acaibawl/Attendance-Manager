@@ -13,13 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/tasks', function() {
-    return view('task');
-});
-Route::get('/projects', function() {
-    return view('project');
-});
+// Route::get('/tasks', function() {
+//     return view('task');
+// });
+// Route::get('/projects', function() {
+//     return view('project');
+// });
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('{any}', function () {
+    return view('app');
+})->where('any','.*');

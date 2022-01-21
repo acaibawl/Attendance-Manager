@@ -32,8 +32,8 @@ const Task = () => {
   );
 };
 
-if (document.getElementById('task')) {
-  ReactDOM.render(<Task />, document.getElementById('task'));
-}
+// if (document.getElementById('task')) {
+//   ReactDOM.render(<Task />, document.getElementById('task'));
+// }
 
 export default Task;
