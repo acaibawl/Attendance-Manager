@@ -23,6 +23,15 @@ class Schedule extends Model
         'end',
     ];
 
+        /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'date' => 'date',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');

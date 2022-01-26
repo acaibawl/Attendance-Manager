@@ -1,12 +1,15 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Attendance;
 
+use App\Models\Attendance\Schedule;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ScheduleFactory extends Factory
 {
+    protected $model = Schedule::class;
+
     /**
      * Define the model's default state.
      *

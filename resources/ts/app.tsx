@@ -8,7 +8,8 @@ import About from "./components/About";
 import Task from "./components/Task";
 import Project from "./components/Project";
 import User from "./components/User";
-import Schedules from "./components/Attendances/Schedules";
+import MonthlySchedule from "./components/Attendances/MonthlySchedule";
+import ScheduleCalendar from "./components/Attendances/ScheduleCalendar";
 
 const App: React.FC = () => {
     return (
@@ -20,7 +21,7 @@ const App: React.FC = () => {
                 <Route path="/tasks" element={<Task />} />
                 <Route path="/projects" element={<Project />} />
                 <Route path="/users/:userId" element={<User />} />
-                <Route path="/users/:userId/attendances/schedules" element={<Schedules />} />
+                <Route path="/users/:userId/attendances/schedules" element={<ScheduleCalendar />} />
             </Routes>
         </BrowserRouter>
     );

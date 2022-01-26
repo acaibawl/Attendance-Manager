@@ -11,7 +11,7 @@ type Schedule = {
   end: Date;
 }
 
-const Schedules: React.FC = () => {
+const MonthlySchedule: React.FC = () => {
   const { userId } = useParams();
 
   const [Schedules, setSchedules] = useState<Schedule[]>([]);
@@ -41,4 +41,4 @@ const Schedules: React.FC = () => {
   );
 };
 
-export default Schedules;
+export default MonthlySchedule;
