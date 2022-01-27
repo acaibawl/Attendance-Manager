@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Attendances\ScheduleController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,6 @@ Route::post('/tokens/create', function(Request $request) {
 // 認証済みでないと許可しない
 Route::group(["middleware" => ["auth:sanctum"]], function() {
     Route::get('/users/{user}', [UserController::class, 'show']);
+    Route::post('/users', [UserController::class, 'store']);
     Route::get('/users/{user}/attendances/schedules', [ScheduleController::class, 'index']);
 });

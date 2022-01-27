@@ -13,6 +13,7 @@ const NavBar = () => {
             <Link to="/about">About</Link>
             <Link to="/tasks">tasks</Link>
             <Link to="/projects">projects</Link>
+            <Link to="/users/new">user作成</Link>
             <Link to={`/users/${user.id}`}>user</Link>
             <Button variant='outlined' onClick={signOut} size='small'>ログアウト</Button>
         </div>
