@@ -21,6 +21,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// 認証前でもOK
 Route::get('/tasks', [TaskController::class, 'index']);
-Route::get('/users/{user}', [UserController::class, 'show']);
-Route::get('/users/{user}/attendances/schedules', [ScheduleController::class, 'index']);
+Route::post('/tokens/create', function(Request $request) {
+    $token = $request->user()->createToken($request->token_name);
+    return ['token' => $token->plainTextToken];
+});
+
+// 認証済みでないと許可しない
+Route::group(["middleware" => ["auth:sanctum"]], function() {
+    Route::get('/users/{user}', [UserController::class, 'show']);
+    Route::get('/users/{user}/attendances/schedules', [ScheduleController::class, 'index']);
+});

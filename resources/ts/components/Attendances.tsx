@@ -24,7 +24,7 @@ const Attendances: React.FC = () => {
         console.log(error);
       });
   }, []);
-  
+
   return (
     <div>
       <ul className="Attendance-list">

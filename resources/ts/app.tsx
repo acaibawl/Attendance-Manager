@@ -1,29 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Sanctum } from "react-sanctum";
 
-import NavBar from "./components/NavBar";
-import Home from "./components/Home";
-import About from "./components/About";
-import Task from "./components/Task";
-import Project from "./components/Project";
-import User from "./components/User";
-import MonthlySchedule from "./components/Attendances/MonthlySchedule";
-import ScheduleCalendar from "./components/Attendances/ScheduleCalendar";
+import CheckAuthentication from "./CheckAuthentication";
+
+const sanctumConfig = {
+    apiUrl: "http://127.0.0.1:8000",
+    csrfCookieRoute: "sanctum/csrf-cookie",
+    signInRoute: "login",
+    signOutRoute: "logout",
+    userObjectRoute: "api/user",
+  };
 
 const App: React.FC = () => {
     return (
-        <BrowserRouter>
-            <NavBar />
-            <Routes>
-                <Route path="/about" element={<About />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/tasks" element={<Task />} />
-                <Route path="/projects" element={<Project />} />
-                <Route path="/users/:userId" element={<User />} />
-                <Route path="/users/:userId/attendances/schedules" element={<ScheduleCalendar />} />
-            </Routes>
-        </BrowserRouter>
+        <Sanctum config={sanctumConfig}>
+            <CheckAuthentication />
+        </Sanctum>
     );
 };
 
