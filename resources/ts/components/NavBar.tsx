@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import { useSanctum } from "react-sanctum";
-import Button from '@mui/material/Button';
+import LogoutButton from './LogoutButton';
 
 const NavBar = () => {
     const { authenticated, user, signOut } = useSanctum();
@@ -15,7 +15,7 @@ const NavBar = () => {
             <Link to="/projects">projects</Link>
             <Link to="/users/new">user作成</Link>
             <Link to={`/users/${user.id}`}>user</Link>
-            <Button variant='outlined' onClick={signOut} size='small'>ログアウト</Button>
+            <LogoutButton />
         </div>
     );
 }
