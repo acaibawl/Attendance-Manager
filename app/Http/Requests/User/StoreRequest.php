@@ -3,8 +3,9 @@
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\ApiRequest;
+use App\Models\User;
 
-class StoreUserRequest extends ApiRequest
+class StoreRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,5 +29,11 @@ class StoreUserRequest extends ApiRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
         ];
+    }
+
+    public function makeUser(): User
+    {
+        // バリデーションした値で埋めたUserを取得
+        return new User($this->validated());
     }
 }

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\StoreRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\UseCases\User\Exceptions\StoreUserException;
+use App\UseCases\User\StoreAction;
+use DomainException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,16 +29,18 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreUserRequest $request
+     * @param StoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreRequest $request, StoreAction $action)
     {
-        return new JsonResponse( User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]), 201);
+        $user = $request->makeUser();
+        try {
+            return new JsonResponse(new UserResource($action($user)), 201);
+        } catch (StoreUserException $e) {
+            // 捕まえた例外はスタックトレースに積む
+            throw new DomainException($e->getMessage(), 422, $e);
+        }
     }
 
     /**
