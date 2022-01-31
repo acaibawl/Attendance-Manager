@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\User\Role;
 use App\Models\Attendance\Schedule;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
     ];
 
@@ -43,6 +45,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'role' => Role::class,              // バリューオブジェクトのRole Castクラスを指定
     ];
 
     public function schedules(): HasMany

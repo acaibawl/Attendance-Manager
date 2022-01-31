@@ -4,6 +4,7 @@ namespace App\Http\Requests\User;
 
 use App\Http\Requests\ApiRequest;
 use App\Models\User;
+use App\Models\ValueObjects\User\RoleVO;
 
 class StoreRequest extends ApiRequest
 {
@@ -27,6 +28,7 @@ class StoreRequest extends ApiRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'role' => ['required', 'integer', 'between:0,30'],
             'password' => ['required', 'string', 'min:8'],
         ];
     }
@@ -34,6 +36,9 @@ class StoreRequest extends ApiRequest
     public function makeUser(): User
     {
         // バリデーションした値で埋めたUserを取得
-        return new User($this->validated());
+        // roleはVOを生成してセットする
+        $role = new RoleVO($this->validated()['role']);
+        $attributes = array_merge($this->validated(), ['role' => $role]);
+        return new User($attributes);
     }
 }

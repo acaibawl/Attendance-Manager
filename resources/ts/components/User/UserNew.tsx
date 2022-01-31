@@ -9,6 +9,7 @@ import can from "../../domain/permission/roleLevels";
 const initialValues = {
     name: "",
     email: "",
+    role: 0,
     password: "",
   };
 
@@ -44,6 +45,7 @@ const UserNew: React.FC = () => {
         <div>
             <TextField name="name" id="name" label="名前" value={values.name} onChange={handleInputChange} variant="outlined" />
             <TextField name="email" id="email" label="email" value={values.email} onChange={handleInputChange} variant="outlined" type="email" />
+            <TextField name="role" id="role" label="role" value={values.role} onChange={handleInputChange} variant="outlined" type="number" />
             <TextField name="password" id="password" label="パスワード" value={values.password} onChange={handleInputChange} variant="outlined" type="password" />
             <Button variant='contained' onClick={handleRegister} size='small'>作成</Button>
         </div>

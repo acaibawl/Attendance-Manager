@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\Attendances\ScheduleController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
