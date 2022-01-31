@@ -5,6 +5,33 @@ import Button from '@mui/material/Button';
 import { Navigate } from "react-router-dom";
 import { useSanctum } from "react-sanctum";
 import can from "../../domain/permission/roleLevels";
+import { SubmitHandler, useForm } from "react-hook-form";
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+type FormInput = {
+    name: string;
+    email: string;
+    role: number;
+    password: string;
+};
+const requiredMessaga = '必須項目です';
+const userFormSchema = yup.object({
+    name: yup.string().required(requiredMessaga),
+    email: yup
+        .string()
+        .required(requiredMessaga)
+        .email('メールアドレスのフォーマットで入力してください'),
+    role: yup.
+        number()
+        .required(requiredMessaga)
+        .min(0, '0以上で入力してください')
+        .max(30, '30以下で入力してください'),
+    password: yup
+        .string()
+        .required(requiredMessaga)
+        .min(8, '8文字以上で入力してください'),
+})
 
 const initialValues = {
     name: "",
@@ -15,39 +42,46 @@ const initialValues = {
 
 const UserNew: React.FC = () => {
   const { user } = useSanctum();
-  const [ values, setValues] = useState(initialValues);
+  const { register, handleSubmit, reset, formState:{ errors }} = useForm<FormInput>({
+        mode: 'onChange',
+        criteriaMode: 'all',
+        shouldFocusError: true,
+        resolver: yupResolver(userFormSchema),
+        defaultValues: {
+            name: "",
+            email: "",
+            role: 0,
+            password: "",
+        },
+    });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const target = e.target;
-      const value = target.type === "checkbox" ? target.checked : target.value;
-      const name = target.name;
-      setValues({...values, [name]: value });
-  };
+    // フォーム送信時の処理
+    const onSubmit: SubmitHandler<FormInput> = (data) => {
+        // バリデーションチェックOK！なときに行う処理を追加
+        console.log(data);
 
-  const handleRegister = () => {
-    console.log('handleRegisterをリクエストします');
-    console.log(values);
-    axios
-      .post("/api/users", values)
-      .then(response => {
-        setValues(initialValues);
-        alert(`userId:${response.data.id}`)
-      })
-      .catch(error => {
-        console.log('エラーです');
-        console.log(error);
-      });
-  };
+        console.log('onSubmitをリクエストします');
+        axios
+            .post("/api/users", data)
+            .then(response => {
+                reset();
+                alert(`userId:${response.data.id}`)
+            })
+            .catch(error => {
+                console.log('エラーです');
+                console.log(error);
+            });
+    };
 
   return (
     can(user, "manager")
         ? (
         <div>
-            <TextField name="name" id="name" label="名前" value={values.name} onChange={handleInputChange} variant="outlined" />
-            <TextField name="email" id="email" label="email" value={values.email} onChange={handleInputChange} variant="outlined" type="email" />
-            <TextField name="role" id="role" label="role" value={values.role} onChange={handleInputChange} variant="outlined" type="number" />
-            <TextField name="password" id="password" label="パスワード" value={values.password} onChange={handleInputChange} variant="outlined" type="password" />
-            <Button variant='contained' onClick={handleRegister} size='small'>作成</Button>
+            <TextField  {...register('name')} id="name" label="名前" variant="outlined" error={'name' in errors} helperText={errors.name?.message} />
+            <TextField  {...register('email')} id="email" label="email" variant="outlined" type="email" error={'email' in errors} helperText={errors.email?.message} />
+            <TextField  {...register('role')} id="role" label="role" variant="outlined" type="number" error={'role' in errors} helperText={errors.role?.message} />
+            <TextField  {...register('password')} id="password" label="パスワード" variant="outlined" type="password" error={'password' in errors} helperText={errors.password?.message} />
+            <Button variant='contained' onClick={handleSubmit(onSubmit)} size='small'>作成</Button>
         </div>
         )
         : <Navigate to="/" />
