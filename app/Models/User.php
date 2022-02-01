@@ -4,14 +4,27 @@ namespace App\Models;
 
 use App\Casts\User\Role;
 use App\Models\Attendance\Schedule;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Validation\Rules\Unique;
+use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * ユーザー
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $email
+ * @property integer $role
+ * @property string $password
+ *
+ * @property \Illuminate\Database\Eloquent\Collection<Schedule> $schedules
+ *
+ * @property string[] $monthsHasSchedule
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -53,7 +66,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Attendance\Schedule');
     }
 
-    public function getMonthsHasScheduleAttribute()
+    public function getMonthsHasScheduleAttribute(): Collection
     {
         return $this->schedules->map(function($item, $key) {
             return $item->date->year . "/" . $item->date->month;
