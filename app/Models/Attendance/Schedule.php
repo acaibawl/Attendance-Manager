@@ -16,8 +16,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon $date
  * @property string $start
  * @property string $end
- *
  * @property User $user
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\Attendance\ScheduleFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereEnd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereIsOverNextDay($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereStart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereUserId($value)
+ * @mixin \Eloquent
  */
 class Schedule extends Model
 {
