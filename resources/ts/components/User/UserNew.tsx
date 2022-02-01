@@ -15,6 +15,9 @@ type FormInput = {
     role: number;
     password: string;
 };
+
+type FormAttributes = "name" | "email" | "role" | "password";
+
 const requiredMessaga = '必須項目です';
 const userFormSchema = yup.object({
     name: yup.string().required(requiredMessaga),
@@ -42,25 +45,17 @@ const initialValues = {
 
 const UserNew: React.FC = () => {
   const { user } = useSanctum();
-  const { register, handleSubmit, reset, formState:{ errors }} = useForm<FormInput>({
+  const { register, handleSubmit, setError, reset, formState:{ errors }} = useForm<FormInput>({
         mode: 'onChange',
         criteriaMode: 'all',
         shouldFocusError: true,
         resolver: yupResolver(userFormSchema),
-        defaultValues: {
-            name: "",
-            email: "",
-            role: 0,
-            password: "",
-        },
+        defaultValues: initialValues,
     });
 
     // フォーム送信時の処理
     const onSubmit: SubmitHandler<FormInput> = (data) => {
         // バリデーションチェックOK！なときに行う処理を追加
-        console.log(data);
-
-        console.log('onSubmitをリクエストします');
         axios
             .post("/api/users", data)
             .then(response => {
@@ -68,8 +63,12 @@ const UserNew: React.FC = () => {
                 alert(`userId:${response.data.id}`)
             })
             .catch(error => {
-                console.log('エラーです');
-                console.log(error);
+                Object.keys(error.response.data.errors).forEach((key) => {
+                    const assertedKey = key as FormAttributes;
+                    error.response.data.errors[key].forEach((message: string) => {
+                        setError(assertedKey, { message: message, type: 'manual' }, { shouldFocus: true });
+                    });
+                });
             });
     };
 

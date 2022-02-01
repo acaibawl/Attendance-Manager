@@ -41,4 +41,15 @@ class StoreRequest extends ApiRequest
         $attributes = array_merge($this->validated(), ['role' => $role]);
         return new User($attributes);
     }
+
+    /**
+     * エラーメッセージ
+     *
+     * @return array
+     */
+    public function messages() {
+        return [
+            'email.unique' => 'emailは既に登録されています。',
+        ];
+    }
 }
