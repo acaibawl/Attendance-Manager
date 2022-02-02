@@ -28,14 +28,14 @@ const [user, setUser] = useState<User>({} as User);
         console.log(error);
       });
   }, []);
-  
+
   return (
     <div>
       <ul className="user-profile">
         <li>{user.id}</li>
         <li>{user.name}</li>
         <li>{user.email}</li>
-        <li><Link to={'/users/' + userId + '/attendances/schedules'} >勤務予定</Link></li>
+        <li><Link to={'/users/' + userId + '/attendances/scheduleCalender'} >勤務予定</Link></li>
       </ul>
     </div>
   );

@@ -10,7 +10,7 @@ import Project from "./components/Project";
 import User from "./components/User";
 import UserNew from "./components/User/UserNew";
 import MonthlySchedule from "./components/Attendances/MonthlySchedule";
-import ScheduleCalendar from "./components/Attendances/ScheduleCalendar";
+import ScheduleCalendar from "./components/Attendances/Schedule/ScheduleCalendar";
 import ScheduleNew from "./components/Attendances/Schedule/ScheduleNew";
 
 
@@ -25,7 +25,7 @@ const AuthedView = () => {
                 <Route path="/projects" element={<Project />} />
                 <Route path="/users/new" element={<UserNew />} />
                 <Route path="/users/:userId" element={<User />} />
-                <Route path="/users/:userId/attendances/schedules" element={<ScheduleCalendar />} />
+                <Route path="/users/:userId/attendances/scheduleCalender" element={<ScheduleCalendar />} />
                 <Route path="/users/:userId/attendances/schedules/new" element={<ScheduleNew />} />
             </Routes>
         </BrowserRouter>

@@ -60,7 +60,7 @@ const ScheduleCalendar: React.FC = () => {
         minDetail="decade"
         tileDisabled={tileDisabled}
       />
-    <Link to={`users/${userId}/attendances/schedules/${format(startDate, 'yyyyMM')}`}>勤務予定</Link>
+    <Link to={`/users/${userId}/attendances/schedules?year=${format(startDate, 'yyyy')}&month=${format(startDate, 'MM')}`}>勤務予定</Link>
     </div>
   );
 };
