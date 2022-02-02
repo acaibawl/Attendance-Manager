@@ -89,9 +89,14 @@ class User extends Authenticatable
 
     public function getMonthsHasScheduleAttribute(): Collection
     {
-        return $this->schedules->map(function($item, $key) {
-            return $item->date->year . "/" . $item->date->month;
-        })->unique();
+
+        return $this->schedules->unique(function($item) {
+                    return $item->date->year . "/" . $item->date->month;
+                })
+                ->map(function($item) {
+                    return $item->date->year . "/" . $item->date->month;
+                })
+                ->values();
     }
 
     public function hasSchedule(Carbon $dt ): bool

@@ -23,10 +23,11 @@ const ScheduleNew: React.FC = () => {
     axios
       .get(`/api/users/${userId}/attendances/schedules`)
       .then(response => {
+        console.log(response.data);
         setScheduleMonths(ConvertResponse(response.data));
       })
       .catch(error => {
-        console.log('エラーです');
+        console.log('Schedulesリクエストのエラーです');
         console.log(error);
       });
   }, []);
