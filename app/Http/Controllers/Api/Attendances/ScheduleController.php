@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api\Attendances;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Attendance\Schedule\IndexRequest;
 use App\Http\Requests\Attendance\Schedule\StoreRequest;
 use App\Http\Resources\Attendance\ScheduleResource;
 use App\Models\Attendance\Schedule;
 use App\Models\User;
+use App\UseCases\Attendance\Schedule\Exceptions\NonScheduleException;
 use App\UseCases\Attendance\Schedule\Exceptions\StoreScheduleException;
+use App\UseCases\Attendance\Schedule\IndexAction;
 use App\UseCases\Attendance\Schedule\StoreAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,9 +24,16 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index(IndexRequest $request, IndexAction $action)
     {
-        //
+        $user = Auth::user();
+        $date = $request->makeDate();
+        try {
+            return new JsonResponse(ScheduleResource::collection($action($user, $date)), 201);
+        } catch (NonScheduleException $e) {
+            // 捕まえた例外はスタックトレースに積む
+            throw new HttpException(422, $e->getMessage(), $e);
+        }
     }
 
     /**
