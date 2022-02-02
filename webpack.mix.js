@@ -12,7 +12,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.ts('resources/ts/app.tsx', 'public/js')
+ // prodでコンパイル時はconsole.logとコメントをすべて削除
+mix.options({
+    terser: {
+        extractComments: "all",
+        terserOptions: {
+            compress: {
+                drop_console: true
+            }
+        }
+    }
+}).
+ts('resources/ts/app.tsx', 'public/js')
     .react()
     .sass('resources/sass/app.scss', 'public/css');
 
