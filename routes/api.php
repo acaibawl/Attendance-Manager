@@ -36,5 +36,6 @@ Route::group(["middleware" => ["auth:sanctum"]], function() {
     // 管理者以上
     Route::group(['middleware' => ['auth', 'can:manager']], function() {
         Route::post('/users', [UserController::class, 'store']);
+        Route::post('/users/{user}/attendances/schedules', [ScheduleController::class, 'store']);
     });
 });

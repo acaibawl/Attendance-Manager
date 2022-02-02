@@ -11,6 +11,7 @@ import User from "./components/User";
 import UserNew from "./components/User/UserNew";
 import MonthlySchedule from "./components/Attendances/MonthlySchedule";
 import ScheduleCalendar from "./components/Attendances/ScheduleCalendar";
+import ScheduleNew from "./components/Attendances/Schedule/ScheduleNew";
 
 
 const AuthedView = () => {
@@ -25,6 +26,7 @@ const AuthedView = () => {
                 <Route path="/users/new" element={<UserNew />} />
                 <Route path="/users/:userId" element={<User />} />
                 <Route path="/users/:userId/attendances/schedules" element={<ScheduleCalendar />} />
+                <Route path="/users/:userId/attendances/schedules/new" element={<ScheduleNew />} />
             </Routes>
         </BrowserRouter>
     );

@@ -18,6 +18,7 @@ const NavBar = () => {
                 <Link to="/users/new">user作成</Link>
             }
             <Link to={`/users/${user.id}`}>user</Link>
+            <Link to={`/users/${user.id}/attendances/schedules/new`}>スケジュール作成</Link>
             <LogoutButton />
         </div>
     );

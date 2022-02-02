@@ -21,7 +21,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property integer $role
  * @property string $password
  * @property \Illuminate\Database\Eloquent\Collection<Schedule> $schedules
- *
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -93,5 +92,15 @@ class User extends Authenticatable
         return $this->schedules->map(function($item, $key) {
             return $item->date->year . "/" . $item->date->month;
         })->unique();
+    }
+
+    public function hasSchedule(Carbon $dt ): bool
+    {
+        $result = $this->schedules()
+                    ->whereYear('date', $dt->year)
+                    ->whereMonth('date', $dt->month)
+                    ->exists();
+
+        return $result;
     }
 }
