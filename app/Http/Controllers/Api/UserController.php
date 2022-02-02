@@ -76,4 +76,9 @@ class UserController extends Controller
     {
         //
     }
+
+    public function monthsHasSchedule(User $user)
+    {
+        return response()->json($user->months_has_schedule);
+    }
 }

@@ -21,7 +21,7 @@ const ScheduleNew: React.FC = () => {
   useEffect(() => {
     console.log('Schedulesをリクエストします');
     axios
-      .get(`/api/users/${userId}/attendances/schedules`)
+      .get(`/api/users/${userId}/attendances/monthsHasSchedule`)
       .then(response => {
         console.log(response.data);
         setScheduleMonths(ConvertResponse(response.data));

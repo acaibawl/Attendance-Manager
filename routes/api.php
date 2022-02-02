@@ -31,6 +31,7 @@ Route::post('/tokens/create', function(Request $request) {
 // 認証済みでないと許可しない
 Route::group(["middleware" => ["auth:sanctum"]], function() {
     Route::get('/users/{user}', [UserController::class, 'show']);
+    Route::get('/users/{user}/attendances/monthsHasSchedule', [UserController::class, 'monthsHasSchedule']);
     Route::get('/users/{user}/attendances/schedules', [ScheduleController::class, 'index']);
 
     // 管理者以上

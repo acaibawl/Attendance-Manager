@@ -23,7 +23,7 @@ class ScheduleController extends Controller
      */
     public function index(User $user)
     {
-        return response()->json($user->months_has_schedule);
+        //
     }
 
     /**
