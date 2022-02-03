@@ -32,11 +32,11 @@ Route::post('/tokens/create', function(Request $request) {
 Route::group(["middleware" => ["auth:sanctum"]], function() {
     Route::get('/users/{user}', [UserController::class, 'show']);
     Route::get('/users/{user}/attendances/monthsHasSchedule', [UserController::class, 'monthsHasSchedule']);
-    Route::get('/users/{user}/attendances/schedules', [ScheduleController::class, 'index']);
+    Route::get('/users/{user}/attendances/schedules', [ScheduleController::class, 'index'])->name('user.attendance.schedule');
 
     // 管理者以上
     Route::group(['middleware' => ['auth', 'can:manager']], function() {
-        Route::post('/users', [UserController::class, 'store']);
-        Route::post('/users/{user}/attendances/schedules', [ScheduleController::class, 'store']);
+        Route::post('/users', [UserController::class, 'store'])->name('user');
+        Route::post('/users/{user}/attendances/schedules', [ScheduleController::class, 'store'])->name('user.attendance.schedule');
     });
 });

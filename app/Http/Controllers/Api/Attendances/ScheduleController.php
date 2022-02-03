@@ -29,7 +29,7 @@ class ScheduleController extends Controller
         $user = Auth::user();
         $date = $request->makeDate();
         try {
-            return new JsonResponse(ScheduleResource::collection($action($user, $date)), 201);
+            return new JsonResponse(ScheduleResource::collection($action($user, $date)), 200);
         } catch (NonScheduleException $e) {
             // 捕まえた例外はスタックトレースに積む
             throw new HttpException(422, $e->getMessage(), $e);
