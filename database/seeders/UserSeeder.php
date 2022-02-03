@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\ValueObjects\User\RoleVO;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -14,6 +15,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(['role' => 30])->count(1)->hasSchedules(1)->create();
+        User::factory(['role' => new RoleVO(30)])->count(1)->hasSchedules(1)->create();
     }
 }
