@@ -28,18 +28,18 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "laravel/composer.json" }}
+            - v1-dependencies-{{ checksum "composer.json" }}
             - v1-dependencies-
 
       - run:
           name: composer install
-          working_directory: laravel
+          working_directory: .
           command: composer install -n --prefer-dist
 
       - save_cache:
           paths:
             - ./vendor
-          key: v1-dependencies-{{ checksum "laravel/composer.json" }}
+          key: v1-dependencies-{{ checksum "composer.json" }}
 
       - run:
           name: Wait for db
@@ -47,5 +47,10 @@ jobs:
 
       - run:
           name: Migration & Seeding
-          working_directory: laravel
+          working_directory: .
           command: php artisan migrate --seed
+
+      - run:
+          name: Unittest
+          working_directory: .
+          command: ./vendor/bin/phpunit
